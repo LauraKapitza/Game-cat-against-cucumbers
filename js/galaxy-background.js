@@ -7,7 +7,7 @@ const galaxyImg = document.createElement('img');
 const backgroundImg = {
     img: galaxyImg,
     x: 0,
-    speed: -4,
+    speed: -0.5,
     
     move: function() {
         this.x += this.speed;
