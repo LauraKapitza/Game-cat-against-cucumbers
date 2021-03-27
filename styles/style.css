@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap'); /* font Space Mono*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* font Roboto */
+
+/* BODY */
+
+* {box-sizing: border-box;}
+body {
+    background-color: #fcfcfc; font: 14px 'Roboto', sans-serif; /* font and color properties */
+    margin: 0 auto;
+}
+
+
+/* TITLE */
+h1 {
+    background: -webkit-linear-gradient(#2C0452, #44008b);-webkit-background-clip: text;-webkit-text-fill-color: transparent; /* create color gradient in text */
+    font: bold 5em 'Space Mono', monospace; text-align: center; /* text style properties */
+    margin-bottom: 0 auto .5em;
+}
+
+/* CONTAINER */
+.container {
+    display: flex; justify-content: center;/* flex properties */
+    margin: 0 auto;
+}
+
+
+/* GAME INFO*/
+
+#game-info {
+    background: white; 
+    border-radius: 25px;box-shadow: 0 0 5px 1px rgba(86, 84, 84, 0.5); /* shadow properties */
+    padding: 50px; margin-right: 20px;
+    text-align: center;
+}
+
+#game-info > p:first-child {
+    font: 32px 'Space Mono', monospace; /* text style properties*/
+    text-align: center;
+    margin: 10px 0 0;
+}
+
+#score {
+    font-size: 4em; color: #2C0452; /* text style properties */
+    margin-bottom: 1em;
+}
+
+
+/* GAME BOARD */
+
+.canvas-container {
+    position: relative;
+    width: 750px;
+    height: 500px;
+}
+
+canvas {
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(86, 84, 84, 0.5);
+}
+
+#canvas-board {
+    position: absolute;
+    z-index: 0;
+}
+
+#canvas-gameplay {
+    background: transparent;
+    position: absolute;
+    z-index: 1;
+}
+
+#start-btn {
+    background: #EEEAEA; border: none; border-radius: 12px; /* color and form style properties */ 
+    color: #2C0452; font-size: 36px; font-weight: bold; /* text style properties */
+    padding: 20px 40px; /* button size */
+    position: absolute; top: 50%; left: 50%; /* centering start button */
+    transform: translate(-50%, -50%); /* center the button's center */
+    z-index: 1;;
+}
+
+#start-btn:hover {
+    background: white; /* change background color when hovering over btn */
+    cursor: pointer;
+} 
+
+#start-btn:focus {outline: none;}
+
+#start-btn:active {
+    border: none;
+    color: #44008b; /* change background color when clicking on btn */
+    cursor: pointer;
+}
+
+#start-btn.hidden {display: none;} /* hidding start btn after clicking it */
+
+
+/* ICONS */
+
+#arrow-top,
+#arrow-down,
+#space-key {
+    background: #dcd5d5;
+    border-radius: 5px;
+}
+
+#arrow-top,
+#arrow-down {
+    display: inline-block;
+    font-size: 20px;
+    margin-bottom: 20px; margin-top: 5px;
+    padding: 5px 10px;
+}
+
+#space-key {
+    display: inline-block;
+    font-weight: bold;
+    padding: 10px 40px;
+    margin: 0 auto 10px;
+}

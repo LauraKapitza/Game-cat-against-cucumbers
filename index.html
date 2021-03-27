@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Cat Against Cucumbers</title>
+  </head>
+
+  <body>
+
+    <h1>Cat Against Cucumbers</h1>
+
+    <div class="container">
+
+      <div id="game-info">
+        
+        <p>High Score</p>
+        
+        <div id="score">
+          <span>0</span>
+          <span>0</span>
+          <span>0</span>
+          <span>0</span>
+        </div>
+      
+        <p>Press the arrow keys to<br> move the cat up and down.</p>
+        <div id="arrow-top">⬆</div>
+        <div id="arrow-down">⬇</div>
+        <p>Press space key to shoot</p>
+        <div id="space-key">SPACE</div>
+      
+      </div>
+    
+      <div class="canvas-container">
+
+          <canvas id="canvas-board" width="750" height="500"></canvas>
+          <canvas id="canvas-gameplay" width="750" height="500"></canvas>
+          <button class="none" id="start-btn">Start Game</button>
+
+      </div>
+    
+    </div>
+
+    <script src="js/galaxy-background.js"></script>
+    <script src="js/laser.js"></script>
+    <script src="js/cat.js"></script>
+    <script src="js/cucumber.js"></script>
+    <script src="js/script.js"></script>
+  
+  </body>
+
+</html>
