@@ -5,12 +5,14 @@ class Cat {
             this.img = catImg;
             
             const ratioImg = catImg.naturalWidth / catImg.naturalHeight;
-            this.w = 100;
+            this.w = 75;
             this.h = this.w / ratioImg;
 
             this.x = canvasGameplay.width/8 - this.w/8;
             this.y = 250 - this.h;
             this.speed = 10;
+
+            this.tolerance = 10;
         }
         catImg.src = "images/cat.png";
     }
@@ -32,7 +34,7 @@ class Cat {
 
     //move cat to the bottom
     moveDown() {
-        if (this.y > canvasGameplay.height) {
+        if (this.y > canvasGameplay.height-this.h) {
             return;
         } else {
             this.y += this.speed;
@@ -41,6 +43,7 @@ class Cat {
 
     //function to shoot
     shoot() {
-        //add logic to let the cat shoot
+        let laser = new Laser();
+        lasers.push(laser)
     }
 }

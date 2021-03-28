@@ -93,6 +93,10 @@ canvas {
 
 #start-btn.hidden {display: none;} /* hidding start btn after clicking it */
 
+.gameover-container {
+    background: rgba(0, 7, 111, .5);
+    padding: 650px 400px;
+}
 
 /* ICONS */
 
