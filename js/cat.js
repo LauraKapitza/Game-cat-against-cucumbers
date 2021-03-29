@@ -10,7 +10,7 @@ class Cat {
 
             this.x = canvasGameplay.width/8 - this.w/8;
             this.y = 250 - this.h;
-            this.speed = 10;
+            this.speed = 0;
 
             this.tolerance = 10;
         }
@@ -26,19 +26,20 @@ class Cat {
     //move cat to the top
     moveUp() {
         if (this.y < 0) {
-            return;
+            this.y = canvasGameplay.height-this.h;
         } else {
-            this.y -= this.speed;
+            this.speed -= 2;
         }
     }
 
     //move cat to the bottom
     moveDown() {
         if (this.y > canvasGameplay.height-this.h) {
-            return;
+            this.y = 0;
         } else {
-            this.y += this.speed;
+            this.speed += 2;
         }
+
     }
 
     //function to shoot

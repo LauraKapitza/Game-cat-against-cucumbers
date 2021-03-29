@@ -9,8 +9,10 @@ class Laser {
             this.w = 100;
             this.h = this.w / ratioImg;
 
-            this.x = cat.x + cat.w;
-            this.y = cat.y + cat.h/5;
+            this.x = cat.x + cat.w * .75;
+            this.y = cat.y + cat.h/2;
+
+            this.speed = 20;
         }
         imgLaser.src = 'images/laser.png';
     }

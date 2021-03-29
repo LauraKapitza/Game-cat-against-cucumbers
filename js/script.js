@@ -37,14 +37,29 @@ function updateCucumbers() {
     }
 }
 
+function updateLaser() {
+    lasers.forEach(function(laser) {
+        laser.x += laser.speed; //moving laser from left to right
+        
+        if(laser.x > canvasGameplay.width) {
+            const index = lasers.indexOf(laser);
+            lasers.splice(index, 1); // removes cucumbers from array when leaving the gameplay canvas
+        };
+        if (lasers) {
+            for (laser of lasers) {
+                laser.draw();
+            }
+        }
+    });    
+}
+
 //updates the gamplay canvas
 function updateGameplay() {
     ctxGameplay.clearRect(0, 0, canvasGameplay.width, canvasGameplay.height);
+    cat.y += cat.speed;
     cat.draw();
     updateCucumbers();
-    if (laser != undefined) {
-        laser.draw();
-    }
+    updateLaser();
 };
 
 
@@ -57,6 +72,10 @@ document.addEventListener('keydown', (e) => {
         case ' ': cat.shoot(); break;
     }
 });
+
+document.onkeyup = function() {
+    cat.speed = 0;
+}
 
 // creates the animation loop to update the gameplay canvas
 function animLoop() {
