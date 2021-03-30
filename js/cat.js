@@ -46,5 +46,6 @@ class Cat {
     shoot() {
         let laser = new Laser();
         lasers.push(laser);
+        laser.playSound();
     }
 }

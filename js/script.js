@@ -61,7 +61,7 @@ function updateLaser() {
         for (cucumber of cucumbers)
             if (laser.hits(cucumber)) {
                 points += 1; //player gets a point - yeah
-
+                cucumber.playSound();
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
                 cucumbers.splice(indexCu, 1); 

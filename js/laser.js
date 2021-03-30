@@ -22,6 +22,12 @@ class Laser {
         ctxGameplay.drawImage(this.img, this.x, this.y, this.w, this.h)
     }
 
+    playSound() {
+        let audio = document.createElement('audio');
+        audio.setAttribute('src', 'audio/pewpew.wav');
+        audio.play();
+    }
+
     hits(cucumber) {
         return (
             (this.x + this.w >= cucumber.x && this.x <= cucumber.x + cucumber.w)

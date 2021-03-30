@@ -26,6 +26,12 @@ class Cucumber {
         ctxGameplay.drawImage(this.img, this.x, this.y, this.w, this.h);
     }
 
+    playSound() {
+        let audio = document.createElement('audio');
+        audio.setAttribute('src', 'audio/bubbly.wav');
+        audio.play();
+    }
+
     hits(cat) {
         return (
             (cat.x + (cat.w-cat.tolerance) >= this.x && cat.x <= this.x + this.w)
