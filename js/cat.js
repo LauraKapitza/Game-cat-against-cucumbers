@@ -45,6 +45,6 @@ class Cat {
     //function to shoot
     shoot() {
         let laser = new Laser();
-        lasers.push(laser)
+        lasers.push(laser);
     }
 }

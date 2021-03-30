@@ -5,10 +5,18 @@ const ctxGameplay = canvasGameplay.getContext('2d');
 //start button
 const startBtn = document.getElementById('start-btn'); 
 
+//score
+let digitOne = document.getElementById('digit-one');
+let digitTwo = document.getElementById('digit-two');
+let digitThree = document.getElementById('digit-three');
+let digitFour = document.getElementById('digit-four');
+
+
 let cat;
 let cucumber;
 let cucumbers = []; //collecting cucumebrs as obstacles
 let lasers = []; //collectin lasers created
+
 let gameOver;
 let points;
 let frames = 0;
@@ -21,7 +29,7 @@ function updateCucumbers() {
         cucumbers.push(cucumber);
     };
 
-    cucumbers.forEach(function(cucumber) {
+    cucumbers.forEach(cucumber => {
         cucumber.x -= cucumber.speed; //moving cucumber from right to left
         if(cucumber.x < -cucumber.w) {
             const index = cucumbers.indexOf(cucumber);
@@ -38,19 +46,41 @@ function updateCucumbers() {
 }
 
 function updateLaser() {
-    lasers.forEach(function(laser) {
+    lasers.forEach(laser => {
         laser.x += laser.speed; //moving laser from left to right
+        laser.draw();
         
         if(laser.x > canvasGameplay.width) {
             const index = lasers.indexOf(laser);
             lasers.splice(index, 1); // removes cucumbers from array when leaving the gameplay canvas
         };
-        if (lasers) {
-            for (laser of lasers) {
-                laser.draw();
+    }); 
+    
+    //check for every laser if one hits a cucumber
+    for(laser of lasers) {
+        for (cucumber of cucumbers)
+            if (laser.hits(cucumber)) {
+                points += 1; //player gets a point - yeah
+
+                // removes cucumber from array after hit
+                const indexCu = cucumbers.indexOf(cucumber);
+                cucumbers.splice(indexCu, 1); 
+
+                //removes laser from array after hit
+                const indexLa = lasers.indexOf(laser);
+                lasers.splice(indexLa, 1);
             }
-        }
-    });    
+    }
+}
+
+function updateScore() {
+    let score = ('0000'+points).slice(-4); //create a four digit score
+
+    //update numbers of DOM span elements
+    digitOne.innerHTML = score[3];
+    digitTwo.innerHTML = score[2];
+    digitThree.innerHTML = score[1];
+    digitFour.innerHTML = score[0];
 }
 
 //updates the gamplay canvas
@@ -60,8 +90,8 @@ function updateGameplay() {
     cat.draw();
     updateCucumbers();
     updateLaser();
+    updateScore();
 };
-
 
 //Press keys to move tha cat or shoot
 document.addEventListener('keydown', (e) => {
