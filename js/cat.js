@@ -15,6 +15,8 @@ class Cat {
             this.tolerance = 10;
         }
         catImg.src = "images/cat.png";
+
+        this.speedValue = 4;
     }
     
     //draw the cat image
@@ -28,7 +30,7 @@ class Cat {
         if (this.y < 0) {
             this.y = canvasGameplay.height-this.h;
         } else {
-            this.speed -= 2;
+            this.speed = -this.speedValue;
         }
     }
 
@@ -37,7 +39,7 @@ class Cat {
         if (this.y > canvasGameplay.height-this.h) {
             this.y = 0;
         } else {
-            this.speed += 2;
+            this.speed = this.speedValue;
         }
 
     }

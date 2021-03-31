@@ -15,17 +15,31 @@ let digitFour = document.getElementById('digit-four');
 let cat;
 let cucumber;
 let cucumbers = []; //collecting cucumebrs as obstacles
+let speedCucumber = 4;
+let canIncreaseSpeed = false;
 let lasers = []; //collectin lasers created
 
 let gameOver;
 let points;
 let frames = 0;
+let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
 let raf;
 
 
+function updateCat() {
+    cat.y += cat.speed;
+    cat.draw();
+}
+
 function updateCucumbers() {
-    if(frames % 50 === 0) {
-        cucumber = new Cucumber();
+
+    if (canIncreaseSpeed) {
+        speedCucumber += 2;
+        canIncreaseSpeed = false;
+    }
+    
+    if(frames % spawnCucumberTimer === 0) {
+        cucumber = new Cucumber(speedCucumber);
         cucumbers.push(cucumber);
     };
 
@@ -43,7 +57,7 @@ function updateCucumbers() {
             gameOver = true;
         }
     }
-}
+};
 
 function updateLaser() {
     lasers.forEach(laser => {
@@ -62,6 +76,15 @@ function updateLaser() {
             if (laser.hits(cucumber)) {
                 points += 1; //player gets a point - yeah
                 cucumber.playSound();
+
+                if (points % 10 == 0) {
+                    canIncreaseSpeed = true;
+                }
+
+                if (points % 5 == 0 && spawnCucumberTimer > 2) {
+                    spawnCucumberTimer -= 2;
+                }
+
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
                 cucumbers.splice(indexCu, 1); 
@@ -69,9 +92,9 @@ function updateLaser() {
                 //removes laser from array after hit
                 const indexLa = lasers.indexOf(laser);
                 lasers.splice(indexLa, 1);
-            }
+            }           
     }
-}
+};
 
 function updateScore() {
     let score = ('0000'+points).slice(-4); //create a four digit score
@@ -81,13 +104,12 @@ function updateScore() {
     digitTwo.innerHTML = score[2];
     digitThree.innerHTML = score[1];
     digitFour.innerHTML = score[0];
-}
+};
 
 //updates the gamplay canvas
 function updateGameplay() {
     ctxGameplay.clearRect(0, 0, canvasGameplay.width, canvasGameplay.height);
-    cat.y += cat.speed;
-    cat.draw();
+    updateCat();
     updateCucumbers();
     updateLaser();
     updateScore();

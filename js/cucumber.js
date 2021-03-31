@@ -3,7 +3,7 @@ function random(from, to) {
 }
 
 class Cucumber {
-    constructor() {
+    constructor(speedCucumber) {
         const imgCucumber = document.createElement('img');
         imgCucumber.onload = () => {
             this.img = imgCucumber;
@@ -14,10 +14,10 @@ class Cucumber {
 
             this.x = canvasGameplay.width;
             this.y = random(0, canvasGameplay.height-(this.h/2));
-            this.speed = 4;
         };
         imgCucumber.src = 'images/pickle-rick.png';
-
+        
+        this.speed = speedCucumber;
         this.tolerance = 10;
     }
 
@@ -39,8 +39,4 @@ class Cucumber {
             (cat.y <= this.y+this.h && cat.y + (cat.h-cat.tolerance) >= this.y) 
         )
     }
-    
-    //add animation to let cucumbers rotate
-
-    // function to move each cucumber randomly in one direction
 }
