@@ -14,14 +14,16 @@ let digitFour = document.getElementById('digit-four');
 
 let cat;
 let cucumber;
-let cucumbers = []; //collecting cucumebrs as obstacles
-let speedCucumber = 4;
-let canIncreaseSpeed = false;
+let cucumbers = []; //collecting cucumbers as obstacles
+let speedCucumber;
+let canIncreaseSpeed;
+let pointsDivisorForSpawning = 5 //no idea how to better name the variable
+let pointsDivisorForIncreasingSpeed = 10; //no idea how to better name the variable
 let lasers = []; //collectin lasers created
 
 let gameOver;
 let points;
-let frames = 0;
+let frames;
 let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
 let raf;
 
@@ -34,6 +36,7 @@ function updateCat() {
 function updateCucumbers() {
 
     if (canIncreaseSpeed) {
+        console.log('whyyyy')
         speedCucumber += 2;
         canIncreaseSpeed = false;
     }
@@ -75,15 +78,10 @@ function updateLaser() {
         for (cucumber of cucumbers)
             if (laser.hits(cucumber)) {
                 points += 1; //player gets a point - yeah
-                cucumber.playSound();
+                cucumber.playSound(); //play sound of cucumber shot
 
-                if (points % 10 == 0) {
-                    canIncreaseSpeed = true;
-                }
-
-                if (points % 5 == 0 && spawnCucumberTimer > 2) {
-                    spawnCucumberTimer -= 2;
-                }
+                if (points != 0 && points % pointsDivisorForIncreasingSpeed == 0) {canIncreaseSpeed = true;}; //increasing speed of cucumbers when reaching a certain score
+                if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 2) {spawnCucumberTimer -= 2;}; //spawning more cucumbers when reaching a certain score
 
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
@@ -136,21 +134,35 @@ function animLoop() {
     
     if (!gameOver) {
         raf = requestAnimationFrame(animLoop);
+    } else {
+        startBtn.setAttribute('class', 'none');
+
+        //push start btn to start game
+        startBtn.addEventListener('click', () => {
+            startBtn.setAttribute('class', 'hidden'); //hide start button
+            startGame();
+        });
+        
     };
 };       
-        
+
 //start the game
 function startGame() {
     if (raf) {
-        cancelAnimationFrame(animLoop)
+        cancelAnimationFrame(raf);
     };
 
-    gameover = false;
+    ctxGameplay.clearRect(0, 0, canvasGameplay.width, canvasGameplay.height);
+    
+    frames = 0;
+    gameOver = false;
     points = 0;
-
+    speedCucumber = 4;
+    canIncreaseSpeed = false;
+    
     cat = new Cat(); //initiate a new cat
     cucumbers = []; //initialize empty array of cucumbers
-
+    
     raf = requestAnimationFrame(animLoop);
 };
 
