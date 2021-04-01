@@ -18,7 +18,7 @@ class Cucumber {
         imgCucumber.src = 'images/pickle-rick.png';
         
         this.speed = speedCucumber;
-        this.tolerance = 10;
+        this.tolerance = 5;
     }
 
     draw() {
@@ -34,9 +34,9 @@ class Cucumber {
 
     hits(cat) {
         return (
-            (cat.x + (cat.w-cat.tolerance) >= this.x && cat.x <= this.x + this.w)
+            (cat.x + (cat.w - cat.tolerance) >= this.x && cat.x <= this.x + (this.w - this.tolerance))
             &&
-            (cat.y <= this.y+this.h && cat.y + (cat.h-cat.tolerance) >= this.y) 
+            (cat.y <= this.y + (this.h-this.tolerance) && cat.y + (cat.h-cat.tolerance) >= this.y) 
         )
     }
 }

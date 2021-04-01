@@ -13,18 +13,24 @@ let digitFour = document.getElementById('digit-four');
 
 
 let cat;
+let lasers = []; //collectin lasers created
+
 let cucumber;
 let cucumbers = []; //collecting cucumbers as obstacles
 let speedCucumber;
 let canIncreaseSpeed;
 let pointsDivisorForSpawning = 5 //no idea how to better name the variable
 let pointsDivisorForIncreasingSpeed = 10; //no idea how to better name the variable
-let lasers = []; //collectin lasers created
+
+let lemon;
+let lemons = [];
+let speedLemon;
 
 let gameOver;
 let points;
 let frames;
 let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
+let spawnLemonTimer = spawnCucumberTimer*3; // 1 second as game run at 60 frames per second
 let raf;
 
 
@@ -33,10 +39,9 @@ function updateCat() {
     cat.draw();
 }
 
-function updateCucumbers() {
-
+function updateCucumber() {
+    //increasig cucumbers' speed
     if (canIncreaseSpeed) {
-        console.log('whyyyy')
         speedCucumber += 2;
         canIncreaseSpeed = false;
     }
@@ -50,17 +55,41 @@ function updateCucumbers() {
         cucumber.x -= cucumber.speed; //moving cucumber from right to left
         if(cucumber.x < -cucumber.w) {
             const index = cucumbers.indexOf(cucumber);
-            cucumbers.splice(index, 1); // removes cucumbers from array when leaving the gameplay canvas
+            cucumbers.splice(index, 1); // removes cucumber from array when leaving the gameplay canvas
         };
-        cucumber.draw();
+        cucumber.draw(); //draw the cucumber
     });
 
+    //game over if cucumber hits cat
     for(cucumber of cucumbers) {
         if (cucumber.hits(cat)) {
             gameOver = true;
         }
     }
 };
+
+function updateLemon() {
+    if(frames % spawnLemonTimer === 0) {
+        lemon = new Lemon(speedLemon);
+        lemons.push(lemon);
+    };
+
+    lemons.forEach(lemon => {
+        lemon.x -= lemon.speed; //moving lemon from right to left
+        if(lemon.x < -lemon.w) {
+            const index = lemons.indexOf(lemon);
+            lemons.splice(index, 1); // removes lemon from array when leaving the gameplay canvas
+        };
+        lemon.draw(); //draw the lemon
+    });
+
+    //game over if lemon hits cat
+    for(lemon of lemons) {
+        if (lemon.hits(cat)) {
+            gameOver = true;
+        }
+    }
+}
 
 function updateLaser() {
     lasers.forEach(laser => {
@@ -80,19 +109,47 @@ function updateLaser() {
                 points += 1; //player gets a point - yeah
                 cucumber.playSound(); //play sound of cucumber shot
 
-                if (points != 0 && points % pointsDivisorForIncreasingSpeed == 0) {canIncreaseSpeed = true;}; //increasing speed of cucumbers when reaching a certain score
+                //increasing speed of cucumbers when reaching a certain score
+                if (points != 0 && points % pointsDivisorForIncreasingSpeed == 0) {
+                    canIncreaseSpeed = true;
+                    lemon = new Lemon(speedLemon);
+                    lemons.push(lemon);
+                }; 
+                
                 if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 2) {spawnCucumberTimer -= 2;}; //spawning more cucumbers when reaching a certain score
 
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
                 cucumbers.splice(indexCu, 1); 
 
-                //removes laser from array after hit
-                const indexLa = lasers.indexOf(laser);
-                lasers.splice(indexLa, 1);
+                removeLaser();
+            }           
+    }
+
+    //check for every laser if one hits a lemon
+    for(laser of lasers) {
+        for (lemon of lemons)
+            if (laser.hits(lemon)) {
+                lemon.life--;
+                if (lemon.life === 0) {
+                    points += 5; //player gets a point - yeah
+                    lemon.playSound(); //play sound of lemon shot
+    
+                    // removes lemon from array after hit
+                    const indexLemon = lemons.indexOf(lemon);
+                    lemons.splice(indexLemon, 1); 
+                }
+
+                removeLaser();
             }           
     }
 };
+
+function removeLaser() {
+    //removes laser from array after hit
+    const indexLaser = lasers.indexOf(laser);
+    lasers.splice(indexLaser, 1);    
+}
 
 function updateScore() {
     let score = ('0000'+points).slice(-4); //create a four digit score
@@ -108,7 +165,8 @@ function updateScore() {
 function updateGameplay() {
     ctxGameplay.clearRect(0, 0, canvasGameplay.width, canvasGameplay.height);
     updateCat();
-    updateCucumbers();
+    updateCucumber();
+    updateLemon();
     updateLaser();
     updateScore();
 };
@@ -158,10 +216,12 @@ function startGame() {
     gameOver = false;
     points = 0;
     speedCucumber = 4;
+    speedLemon = 4;
     canIncreaseSpeed = false;
     
     cat = new Cat(); //initiate a new cat
     cucumbers = []; //initialize empty array of cucumbers
+    lemons = [];
     
     raf = requestAnimationFrame(animLoop);
 };
