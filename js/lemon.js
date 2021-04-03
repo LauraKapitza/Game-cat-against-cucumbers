@@ -8,11 +8,11 @@ class Lemon {
 
             const ratioImg = imgLemon.naturalWidth / imgLemon.naturalHeight;
 
-            this.w = 200;
+            this.w = 100;
             this.h = this.w / ratioImg;
 
             this.x = canvasGameplay.width;
-            this.y = random(0, canvasGameplay.height-(this.h/2));
+            this.y = random(0, canvasGameplay.height-(this.h));
         }
         imgLemon.src = 'images/lemon.png';
 

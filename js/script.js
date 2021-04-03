@@ -2,8 +2,11 @@
 const canvasGameplay = document.getElementById('canvas-gameplay');
 const ctxGameplay = canvasGameplay.getContext('2d');
 
-//start button
-const startBtn = document.getElementById('start-btn'); 
+//start and restart button
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
+
+const gameEnd = document.getElementById('game-over-container');
 
 //score
 let digitOne = document.getElementById('digit-one');
@@ -23,7 +26,7 @@ let pointsDivisorForSpawning = 5 //no idea how to better name the variable
 let pointsDivisorForIncreasingSpeed = 10; //no idea how to better name the variable
 
 let lemon;
-let lemons = [];
+let lemons = []; //collecting lemons as obstacles
 let speedLemon;
 
 let gameOver;
@@ -42,7 +45,7 @@ function updateCat() {
 function updateCucumber() {
     //increasig cucumbers' speed
     if (canIncreaseSpeed) {
-        speedCucumber += 2;
+        speedCucumber += 1;
         canIncreaseSpeed = false;
     }
     
@@ -69,11 +72,6 @@ function updateCucumber() {
 };
 
 function updateLemon() {
-    if(frames % spawnLemonTimer === 0) {
-        lemon = new Lemon(speedLemon);
-        lemons.push(lemon);
-    };
-
     lemons.forEach(lemon => {
         lemon.x -= lemon.speed; //moving lemon from right to left
         if(lemon.x < -lemon.w) {
@@ -193,11 +191,11 @@ function animLoop() {
     if (!gameOver) {
         raf = requestAnimationFrame(animLoop);
     } else {
-        startBtn.setAttribute('class', 'none');
+        gameEnd.setAttribute('class', 'none');
 
-        //push start btn to start game
-        startBtn.addEventListener('click', () => {
-            startBtn.setAttribute('class', 'hidden'); //hide start button
+        //push restart btn to restart game
+        restartBtn.addEventListener('click', () => {
+            gameEnd.setAttribute('class', 'hidden'); //hide game over container
             startGame();
         });
         
@@ -216,12 +214,13 @@ function startGame() {
     gameOver = false;
     points = 0;
     speedCucumber = 4;
-    speedLemon = 4;
+    speedLemon = 6;
     canIncreaseSpeed = false;
     
     cat = new Cat(); //initiate a new cat
     cucumbers = []; //initialize empty array of cucumbers
-    lemons = [];
+    lemons = []; //initialize empty array of lemons
+    lasers = []; //initialize empty array of lasers
     
     raf = requestAnimationFrame(animLoop);
 };

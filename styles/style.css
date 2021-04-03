@@ -69,34 +69,69 @@ canvas {
     z-index: 1;
 }
 
+
 #start-btn {
     background: #EEEAEA; border: none; border-radius: 12px; /* color and form style properties */ 
-    color: #2C0452; font-size: 36px; font-weight: bold; /* text style properties */
+    color: #44008b; font-size: 36px; font-weight: bold; /* text style properties */
     padding: 20px 40px; /* button size */
     position: absolute; top: 50%; left: 50%; /* centering start button */
     transform: translate(-50%, -50%); /* center the button's center */
-    z-index: 1;;
+    z-index: 1;
 }
 
 #start-btn:hover {
     background: white; /* change background color when hovering over btn */
+    color: #44008b;
     cursor: pointer;
 } 
 
-#start-btn:focus {outline: none;}
+#start-btn:focus,
+#restart-btn:focus {outline: none;}
 
 #start-btn:active {
     border: none;
-    color: #44008b; /* change background color when clicking on btn */
+    color: #6a00d9; /* change text color when clicking on btn */
     cursor: pointer;
 }
 
-#start-btn.hidden {display: none;} /* hidding start btn after clicking it */
-
-.gameover-container {
-    background: rgba(0, 7, 111, .5);
-    padding: 650px 400px;
+#game-over-container {
+    background: rgba(238, 234, 234, .9);
+    border-radius: 20px;
+    display: flex; flex-flow: column; justify-content: center; align-items: center; /* flex box properties */
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); /* properties to center div */
+    width: 70%; height: 80%; /* sizing div */
+    z-index: 1;
 }
+
+#game-over-container.hidden, .hidden {display: none;} /* hidding start btn after clicking it */
+
+#game-over-container > p {
+    font: 60px 'Space Mono', monospace;
+    margin: 0 auto 10px;
+}
+
+.gif {
+    border-radius: 8px; 
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+#restart-btn {
+    background: #2b0058; border: none; border-radius: 12px; /* color and form style properties */ 
+    color: #EEEAEA; font-size: 36px; font-weight: bold; /* text style properties */
+    padding: 20px 40px; /* button size */
+}
+
+#restart-btn:hover {
+    background: #44008b; /* change text color when hovering over btn */
+    cursor: pointer;
+} 
+
+#restart-btn:active {
+    background: #5000a5; /* change background color when clicking over btn */
+    cursor: pointer;
+} 
+
 
 /* ICONS */
 
