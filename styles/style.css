@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap'); /* font Space Mono*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* font Roboto */
 
+/* -------------------- */
 /* BODY */
+/* -------------------- */
 
 * {box-sizing: border-box;}
 body {
@@ -9,22 +11,28 @@ body {
     margin: 0 auto;
 }
 
-
-/* TITLE */
 h1 {
     background: -webkit-linear-gradient(#2C0452, #44008b);-webkit-background-clip: text;-webkit-text-fill-color: transparent; /* create color gradient in text */
     font: bold 5em 'Space Mono', monospace; text-align: center; /* text style properties */
     margin-bottom: 0 auto .5em;
 }
 
-/* CONTAINER */
 .container {
     display: flex; justify-content: center;/* flex properties */
     margin: 0 auto;
 }
 
 
+
+/* -------------------- */
 /* GAME INFO*/
+/* -------------------- */
+
+.canvas-container {
+    position: relative;
+    width: 750px;
+    height: 500px;
+}
 
 #game-info {
     background: white; 
@@ -44,14 +52,9 @@ h1 {
     margin-bottom: 1em;
 }
 
-
+/* -------------------- */
 /* GAME BOARD */
-
-.canvas-container {
-    position: relative;
-    width: 750px;
-    height: 500px;
-}
+/* -------------------- */
 
 canvas {
     border-radius: 5px;
@@ -68,7 +71,6 @@ canvas {
     position: absolute;
     z-index: 1;
 }
-
 
 #start-btn {
     background: #EEEAEA; border: none; border-radius: 12px; /* color and form style properties */ 
@@ -103,16 +105,11 @@ canvas {
     z-index: 1;
 }
 
-#game-over-container.hidden, .hidden {display: none;} /* hidding start btn after clicking it */
-
-#game-over-container > p {
-    font: 60px 'Space Mono', monospace;
-    margin: 0 auto 10px;
-}
+#game-over-container.hidden, .hidden {display: none;} /* hiding container when click event happens */
 
 .gif {
     border-radius: 8px; 
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     width: 60%;
 }
 
@@ -123,7 +120,7 @@ canvas {
 }
 
 #restart-btn:hover {
-    background: #44008b; /* change text color when hovering over btn */
+    background: #44008b; /* change background color when hovering over btn */
     cursor: pointer;
 } 
 
@@ -132,8 +129,9 @@ canvas {
     cursor: pointer;
 } 
 
-
+/* -------------------- */
 /* ICONS */
+/* -------------------- */
 
 #arrow-top,
 #arrow-down,

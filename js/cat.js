@@ -37,6 +37,7 @@ class Cat {
         this.speed = this.speedValue;
     }
     
+    //function to mimit cat's movement within the canvas
     checkLimit() {
         if (this.y > canvasGameplay.height-this.h) {
             this.y = canvasGameplay.height-this.h;

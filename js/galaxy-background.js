@@ -16,7 +16,6 @@ const backgroundImg = {
     
     draw: function() {
         const ratioImg = galaxyImg.naturalWidth / galaxyImg.naturalHeight;
-        const imgHeight = 600;
         
         ctxBoard.drawImage(this.img, this.x, 0, galaxyImg.naturalWidth, galaxyImg.naturalWidth/ratioImg);
         ctxBoard.drawImage(this.img, this.x + galaxyImg.naturalWidth, 0, galaxyImg.naturalWidth, galaxyImg.naturalWidth/ratioImg);

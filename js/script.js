@@ -22,8 +22,8 @@ let cucumber;
 let cucumbers = []; //collecting cucumbers as obstacles
 let speedCucumber;
 let canIncreaseSpeed;
-let pointsDivisorForSpawning = 5 //no idea how to better name the variable
-let pointsDivisorForIncreasingSpeed = 10; //no idea how to better name the variable
+let pointsDivisorForSpawning = 5 //to determine when more cucumbers will be created
+let pointsDivisorForIncreasingSpeed = 10; //to determine when cucumbers will be faster
 
 let lemon;
 let lemons = []; //collecting lemons as obstacles
@@ -34,7 +34,7 @@ let points;
 let frames;
 let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
 let spawnLemonTimer = spawnCucumberTimer*3; // 1 second as game run at 60 frames per second
-let raf;
+let raf; //request qnimation frame
 
 
 function updateCat() {
@@ -114,7 +114,7 @@ function updateLaser() {
                     lemons.push(lemon);
                 }; 
                 
-                if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 2) {spawnCucumberTimer -= 2;}; //spawning more cucumbers when reaching a certain score
+                if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 2) {spawnCucumberTimer -= 4;}; //spawning more cucumbers when reaching a certain score
 
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
@@ -210,6 +210,7 @@ function startGame() {
 
     ctxGameplay.clearRect(0, 0, canvasGameplay.width, canvasGameplay.height);
     
+    //initialiye variables for the game
     frames = 0;
     gameOver = false;
     points = 0;
