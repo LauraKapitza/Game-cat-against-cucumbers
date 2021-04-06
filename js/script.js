@@ -22,22 +22,40 @@ let cucumber;
 let cucumbers = []; //collecting cucumbers as obstacles
 let speedCucumber;
 let canIncreaseSpeed;
-let pointsDivisorForSpawning = 5 //to determine when more cucumbers will be created
+let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
+let pointsDivisorForSpawning = 5; //to determine when more cucumbers will be created
 let pointsDivisorForIncreasingSpeed = 10; //to determine when cucumbers will be faster
 
 let lemon;
 let lemons = []; //collecting lemons as obstacles
 let speedLemon;
 
+let keyArrowUp;
+let keyArrowDown;
+let keySpace;
+let canShootTimer = 14;
+let canShoot = false;
+
 let gameOver;
 let points;
 let frames;
-let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
-let spawnLemonTimer = spawnCucumberTimer*3; // 1 second as game run at 60 frames per second
 let raf; //request qnimation frame
 
 
 function updateCat() {
+    if (keyArrowUp) cat.moveUp(); //move cat while keyArrowUp is true
+    if (keyArrowDown) cat.moveDown(); //move cat while keyArrowDown is true
+    //time between two lasers
+    if (frames % canShootTimer == 0) {
+        canShoot = true;
+    }
+    //condition when cat can shoot
+    if (keySpace && canShoot) {
+        cat.shoot();
+        canShoot = false;
+    }       
+
+    //update vertical positioning with the speed value
     cat.y += cat.speed;
     cat.draw();
 }
@@ -49,6 +67,7 @@ function updateCucumber() {
         canIncreaseSpeed = false;
     }
     
+    //creating a cucumber after a specific frame number
     if(frames % spawnCucumberTimer === 0) {
         cucumber = new Cucumber(speedCucumber);
         cucumbers.push(cucumber);
@@ -114,7 +133,9 @@ function updateLaser() {
                     lemons.push(lemon);
                 }; 
                 
-                if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 2) {spawnCucumberTimer -= 4;}; //spawning more cucumbers when reaching a certain score
+                if (points != 0 && points % pointsDivisorForSpawning == 0 && spawnCucumberTimer > 4) {
+                    spawnCucumberTimer -= 4; //spawning more cucumbers when reaching a certain score
+                }; 
 
                 // removes cucumber from array after hit
                 const indexCu = cucumbers.indexOf(cucumber);
@@ -173,15 +194,20 @@ function updateGameplay() {
 document.addEventListener('keydown', (e) => {
     if (!cat) return;
     switch(e.key) {
-        case 'ArrowUp': cat.moveUp(); break;
-        case 'ArrowDown': cat.moveDown(); break;
-        case ' ': cat.shoot(); break;
+        case 'ArrowUp': keyArrowUp = true; break;
+        case 'ArrowDown': keyArrowDown = true; break;
+        case ' ': keySpace = true; break;
     }
 });
 
-document.onkeyup = function() {
-    cat.speed = 0;
-}
+document.addEventListener('keyup', (e) => {
+    if (!cat) return;
+    switch(e.key) {
+        case 'ArrowUp': keyArrowUp = false; cat.speed = 0; break;
+        case 'ArrowDown': keyArrowDown = false; cat.speed = 0; break;
+        case ' ': keySpace = false; break;
+    }
+});
 
 // creates the animation loop to update the gameplay canvas
 function animLoop() {
@@ -217,6 +243,9 @@ function startGame() {
     speedCucumber = 4;
     speedLemon = 6;
     canIncreaseSpeed = false;
+    keyArrowUp = false;
+    keyArrowDown = false;
+    keySpace = false;
     
     cat = new Cat(); //initiate a new cat
     cucumbers = []; //initialize empty array of cucumbers
