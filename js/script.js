@@ -22,7 +22,7 @@ let cucumber;
 let cucumbers = []; //collecting cucumbers as obstacles
 let speedCucumber;
 let canIncreaseSpeed;
-let spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
+let spawnCucumberTimer; 
 let pointsDivisorForSpawning = 5; //to determine when more cucumbers will be created
 let pointsDivisorForIncreasingSpeed = 10; //to determine when cucumbers will be faster
 
@@ -243,6 +243,7 @@ function startGame() {
     speedCucumber = 4;
     speedLemon = 6;
     canIncreaseSpeed = false;
+    spawnCucumberTimer = 60; // 1 second as game run at 60 frames per second
     keyArrowUp = false;
     keyArrowDown = false;
     keySpace = false;
